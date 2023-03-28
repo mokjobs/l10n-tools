@@ -5,7 +5,7 @@ import fs from 'fs'
 import * as path from "path"
 
 export default async function (domainName, config, potPath) {
-    const srcPaths = await getSrcPaths(config, ['.js'])
+    const srcPaths = await getSrcPaths(config, ['.js', '.ts', '.jsx', '.tsx'])
     const keywords = config.get('keywords')
 
     const extractor = PotExtractor.create(domainName, {keywords})
@@ -13,7 +13,7 @@ export default async function (domainName, config, potPath) {
     for (const srcPath of srcPaths) {
         log.verbose('extractPot', `processing '${srcPath}'`)
         const ext = path.extname(srcPath)
-        if (ext === '.js') {
+        if (['.js', '.ts', '.jsx', '.tsx'].includes(ext)) {
             const input = fs.readFileSync(srcPath, {encoding: 'UTF-8'})
             extractor.extractReactJsModule(srcPath, input)
         } else {
