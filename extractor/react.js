@@ -9,7 +9,7 @@ export default async function (domainName, config, potPath) {
     const keywords = config.get('keywords')
 
     const extractor = PotExtractor.create(domainName, {keywords})
-    log.info('extractPot', 'extracting from .js files')
+    log.info('extractPot', 'extracting from .js, .ts, .jsx, .tsx files')
     for (const srcPath of srcPaths) {
         log.verbose('extractPot', `processing '${srcPath}'`)
         const ext = path.extname(srcPath)
